@@ -11,4 +11,4 @@ Image classification is the task of assigning an input image one label from a fi
 
 ### Handwriting recognition
 
-The ability of a computer to interpret handwritings from texts, such as photographs, paper texts, or pdfs. The computer is able to find the most plausible words for a given text with unclear words.
+The ability of a computer to interpret handwritings from texts, such as photographs, paper texts, or pdfs. The computer is able to find the most plausible words for a given text with unclear words. (write more about the specific task of the Kaggle competition, like what is the input/output, the specific problem formulation and evaluation metric)
