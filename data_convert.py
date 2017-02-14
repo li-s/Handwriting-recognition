@@ -21,19 +21,19 @@ def convert():
 				y = 0
 				for j in range(4, len(doc[0])):	#only literates over the binary part
 					if x < x_max:	#
-						matrix[y][x] = doc2[i][j]	# substitude the matrix for the binary
+						matrix[y][x] = doc2[0][j]	# substitude the matrix for the binary
 						x += 1
 					else:
 						print(x, y)
 						y += 1
 						x = 0
 					
-					
-'''
-	line 20: need to find way to initialise multiple numpy arrays at the same time(number of arrays = len(doc2)-1, as the first line is not important to us right now)
-'''
-					
 			print(len(doc))
 			pprint(matrix, stream = w)
+			
+'''
+	line 20: need to find way to initialise multiple numpy arrays at the same time(number of arrays = len(doc2)-1, as the first line is not important to us right now)
+'''					
+
 
 convert()
