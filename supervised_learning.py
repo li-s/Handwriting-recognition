@@ -53,16 +53,17 @@ num_classes = y_test.shape[1]
 one hot encoding -> converts the 24 alphabets to a categorical system where the machine understands
 '''
 
-# def baseline_model():
-# 	# create model
-# 	model = Sequential()
-# 	model.add(Dense(num_pixels, input_dim=num_pixels, init='normal', activation='relu'))
-# 	model.add(Dense(num_classes, init='normal', activation='softmax'))
-#
-# 	# Compile model
-# 	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-# 	return model
-#
+def baseline_model():
+	# create model
+	model = Sequential()
+	model.add(Dense(num_pixels, input_dim=num_pixels, init='normal', activation='relu'))
+	model.add(Dense(num_classes, init='normal', activation='softmax'))
+
+	# Compile model
+	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+	return model
+
+
 # # build the model
 # model = baseline_model()
 #
