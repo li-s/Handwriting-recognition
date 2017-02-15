@@ -18,4 +18,5 @@ The ability of a computer to interpret handwritings from texts, such as photogra
 2. scikit-image
 3. matplotlib
 4. [keras](http://machinelearningmastery.com/handwritten-digit-recognition-using-convolutional-neural-networks-python-keras/)
-5. 
+5. tensorflow
+6. 
