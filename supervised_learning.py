@@ -9,20 +9,30 @@ import pickle
 seed = 7
 numpy.random.seed(seed)
 
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+#(x_train, y_train), (x_test, y_test) = mnist.load_data()
 '''
 format of mnist:
 ((([x_train], dtype = unit8), ([y_train])), (([x_test]), dtype = unit8), ([y_test])))
 '''
 with open('./data/training_image.pkl', 'rb') as a:
 	mydataset = pickle.load(a)
-# 	(x_train, y_train) = mydataset
+	(x_train, y_train) = mydataset
 
-# # flatten 28*28 images to a 784 vector for each image
-# num_pixels = x_train.shape[1] * x_train.shape[2]
-# x_train = x_train.reshape(x_train.shape[0], num_pixels).astype('float32')
-# x_test = x_test.reshape(x_test.shape[0], num_pixels).astype('float32')
-#
+'''
+Reminder: initialize y_test and x_test
+'''
+
+# flatten 28*28 images to a 784 vector for each image
+num_pixels = x_train.shape[1] * x_train.shape[2]
+x_train = x_train.reshape(x_train.shape[0], num_pixels).astype('float32')
+'''
+reshape(x_train.shape[0], num_pixels) = what does 0 and num_pixels input do?
+'''
+
+'''
+Not implemented:
+x_test = x_test.reshape(x_test.shape[0], num_pixels).astype('float32')
+'''
 # # normalize inputs from 0-255 to 0-1
 # x_train = x_train / 255
 # x_test = x_test / 255

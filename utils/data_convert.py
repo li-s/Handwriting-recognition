@@ -18,10 +18,12 @@ def convert(num):
 			c = [int(ele) for ele in doc[4:]]
 			x = np.asarray(c, dtype = np.int)
 			x = x.reshape((16, 8))
+			x = x.tolist()
 			y = doc[1]
 			arrays.append(x)
 			answer.append(y)
 
+		arrays = np.asarray(arrays)
 		data.append(arrays)
 		data.append(answer)
 
@@ -39,4 +41,4 @@ if __name__ == '__main__':
 	num = input('Enter a number: 1 == show 15 images, 2 == save to file \nInput: ')
 	start = time()
 	convert(num)
-	print('The program ran for: {}'.format(time() - start))
+print('The program ran for: {}'.format(time() - start))
