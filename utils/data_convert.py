@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 def convert(num):
 	with open('/home/li/Downloads/train.csv', 'r') as read:
 		arrays = []
-		answer = []
+		str_answer = []
 		data = []
 		for line in read:
 			doc = line.split(',')
@@ -21,11 +21,19 @@ def convert(num):
 			x = x.tolist()
 			y = doc[1]
 			arrays.append(x)
-			answer.append(y)
+			str_answer.append(y)
+		#makes the training sample for keras
+
+		int_answer = []
+		for i in str_answer:
+			int_answer.append(ord(i) - ord('a'))
+		#convert a-b to their int counterparts
 
 		arrays = np.asarray(arrays)
+		int_answer = np.asarray(int_answer, dtype = np.int)
 		data.append(arrays)
-		data.append(answer)
+		data.append(int_answer)
+		#format
 
 	if int(num) == 1:
 		for i in range(15):

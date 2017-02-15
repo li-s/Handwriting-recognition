@@ -33,15 +33,26 @@ reshape(x_train.shape[0], num_pixels) = what does 0 and num_pixels input do?
 Not implemented:
 x_test = x_test.reshape(x_test.shape[0], num_pixels).astype('float32')
 '''
-# # normalize inputs from 0-255 to 0-1
-# x_train = x_train / 255
-# x_test = x_test / 255
-#
-# # one hot encode outputs
-# y_train = np_utils.to_categorical(y_train)
-# y_test = np_utils.to_categorical(y_test)
-# num_classes = y_test.shape[1]
-#
+
+'''
+#No need as our inputs are binary(**change when uncomenting line 12)
+# normalize inputs from 0-255 to 0-1
+x_train = x_train / 255
+x_test = x_test / 255
+'''
+
+# one hot encode outputs
+y_train = np_utils.to_categorical(y_train)
+num_classes = y_train.shape[1] #remove when uncomenting line 49
+'''
+y_test = np_utils.to_categorical(y_test)
+num_classes = y_test.shape[1]
+'''
+
+'''
+one hot encoding -> converts the 24 alphabets to a categorical system where the machine understands
+'''
+
 # def baseline_model():
 # 	# create model
 # 	model = Sequential()
