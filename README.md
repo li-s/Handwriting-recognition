@@ -19,8 +19,8 @@ The ability of a computer to interpret handwritings from texts, such as photogra
 3. [matplotlib](http://matplotlib.org/)
 4. [keras](http://machinelearningmastery.com/handwritten-digit-recognition-using-convolutional-neural-networks-python-keras/)
 5. [tensorflow](https://www.tensorflow.org/) (for keras machine learning)
-6.
 
 ## Miscellaneous
 + [one hot encoding](https://www.quora.com/What-is-one-hot-encoding-and-when-is-it-used-in-data-science)
 + [Task](https://inclass.kaggle.com/c/cs5339-prediction-competition)
++ [What is an intuitive explanation for neural networks?](https://www.quora.com/What-is-an-intuitive-explanation-for-neural-networks)
