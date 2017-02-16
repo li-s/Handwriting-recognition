@@ -25,10 +25,10 @@ def convert_train(num):
 			str_answer.append(y)
 
 		#convert a-b to their int counterparts
-		int_answer = []
+		train_answer = []
 		for i in str_answer:
 			a = ord(i) - ord('a')
-			int_answer.append(int(a))
+			train_answer.append(int(a))
 
 		#select 1000 images for testing out of the 40,000++ train images
 		a = sample(range(len(train_array)), 1000)
@@ -37,22 +37,27 @@ def convert_train(num):
 		test = []
 		for i in a:
 			test_array.append(train_array[i])
-			test_answer.append(int_answer[i])
+			test_answer.append(train_answer[i])
+
+		'''
+		Cant find way to complete this -> not sure how to remove specific elements from
+		train_answer corresponding to that removed from train_array. Cannot use list
+		comprehensions or all a-z will be removed from train_answer.
 
 		#removal of the 1,000 images from train
 		print(len(train_array))
 		train_array = [a_list for a_list in train_array if a_list not in test_array]
 		print(len(test_array))
 		print(len(train_array))
-		'''
+
 		Note: may remove more than 1,000 images due to repeated images in train.csv
 		'''
 
 		#format for train
 		train_array = np.asarray(train_array)
-		int_answer = np.asarray(int_answer, dtype = np.int)
+		train_answer = np.asarray(train_answer, dtype = np.int)
 		train.append(train_array)
-		train.append(int_answer)
+		train.append(train_answer)
 
 		#format for test
 		test_array = np.asarray(test_array, dtype = np.int)

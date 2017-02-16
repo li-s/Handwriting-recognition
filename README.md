@@ -23,3 +23,4 @@ The ability of a computer to interpret handwritings from texts, such as photogra
 
 ## Miscellaneous
 + [one hot encoding](https://www.quora.com/What-is-one-hot-encoding-and-when-is-it-used-in-data-science)
++ [Task](https://inclass.kaggle.com/c/cs5339-prediction-competition)
