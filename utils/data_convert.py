@@ -39,10 +39,12 @@ def convert_train(num):
 			test_array.append(train_array[i])
 			test_answer.append(int_answer[i])
 
-		#removal of the 1000 images from train
-		train_array = [[a_list for a_list in train_array if train_array[i] not in test_array] for i in range(len(train_array))]
-		print(train_array)
-		
+		#removal of the 1000 images from train\
+		print(len(train_array))
+		train_array = [a_list for a_list in train_array if a_list not in test_array]
+		print(len(test_array))
+		print(len(train_array))
+
 		#format for train
 		train_array = np.asarray(train_array)
 		int_answer = np.asarray(int_answer, dtype = np.int)
