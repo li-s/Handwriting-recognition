@@ -1,5 +1,5 @@
 import numpy
-from keras.datasets import mnist
+from keras.datasets import mnist	#this is a set of images
 from keras.models import Sequential
 from keras.layers import Dense
 #from keras.layers import Dropout
@@ -14,13 +14,13 @@ numpy.random.seed(seed)
 format of mnist:
 ((([x_train], dtype = unit8), ([y_train])), (([x_test]), dtype = unit8), ([y_test])))
 '''
-with open('./data/training_image.pkl', 'rb') as a:
+with open('./data/train_image.pkl', 'rb') as a:
 	mydataset = pickle.load(a)
 	(x_train, y_train) = mydataset
 
-'''
-Reminder: initialize y_test and x_test
-'''
+with open('./data/test_image.pkl', 'rb') as a:
+	mydataset = pickle.load(a)
+	(x_test, y_test) = mydataset
 
 # flatten 28*28 images to a 784 vector for each image
 num_pixels = x_train.shape[1] * x_train.shape[2]
@@ -50,7 +50,7 @@ num_classes = y_test.shape[1]
 '''
 
 '''
-one hot encoding -> converts the 24 alphabets to a categorical system where the machine understands
+one hot encoding -> converts the 24 alphabets(represented as integers) to a categorical system where the machine understands
 '''
 
 def baseline_model():
@@ -64,9 +64,9 @@ def baseline_model():
 	return model
 
 
-# # build the model
-# model = baseline_model()
-#
+# build the model
+model = baseline_model()
+
 # # Fit the model
 # model.fit(x_train, y_train, validation_data=(x_test, y_test), nb_epoch=10, batch_size=200, verbose=2)
 #
