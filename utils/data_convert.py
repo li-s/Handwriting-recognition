@@ -30,13 +30,13 @@ def convert_train():
 		#selects 1000 images for testing out of the 40,000++ train images and removes it from the array
 		train_array = []
 		train_answer = []
-		test_array = []
-		test_answer = []
+		val_array = []
+		val_answer = []
 		a = sample(range(len(array)), 1000)
 		for i in range(len(array)):
 			if i in a:
-				test_array.append(array[i])
-				test_answer.append(answer[i])
+				val_array.append(array[i])
+				val_answer.append(answer[i])
 
 			else:
 				train_array.append(array[i])
@@ -50,20 +50,20 @@ def convert_train():
 		train.append(train_array)
 		train.append(train_answer)
 
-		#format for test
-		test = []
-		test_array = np.asarray(test_array, dtype = np.int)
-		test_answer = np.asarray(test_answer, dtype = np.int)
-		test.append(test_array)
-		test.append(test_answer)
+		#format for val
+		val = []
+		val_array = np.asarray(val_array, dtype = np.int)
+		val_answer = np.asarray(val_answer, dtype = np.int)
+		val.append(val_array)
+		val.append(val_answer)
 
-		return train, test
+		return train, val
 
 if __name__ == '__main__':
 	start = time()
-	train, test = convert_train()
+	train, val = convert_train()
 	with open('../data/train_image.pkl', 'wb') as w:
 		pickle.dump(train, w)
-	with open('../data/test_image.pkl', 'wb') as w:
-		pickle.dump(test, w)
+	with open('../data/val_image.pkl', 'wb') as w:
+		pickle.dump(val, w)
 	print('The program ran for: {}'.format(time() - start))
