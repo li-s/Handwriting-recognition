@@ -25,13 +25,9 @@ with open('./data/test_image.pkl', 'rb') as a:
 # flatten 28*28 images to a 784 vector for each image
 num_pixels = x_train.shape[1] * x_train.shape[2]
 x_train = x_train.reshape(x_train.shape[0], num_pixels).astype('float32')
+x_test = x_test.reshape(x_test.shape[0], num_pixels).astype('float32')
 '''
 reshape(x_train.shape[0], num_pixels) = what does 0 and num_pixels input do?
-'''
-
-'''
-Not implemented:
-x_test = x_test.reshape(x_test.shape[0], num_pixels).astype('float32')
 '''
 
 '''
@@ -43,14 +39,19 @@ x_test = x_test / 255
 
 # one hot encode outputs
 y_train = np_utils.to_categorical(y_train)
-num_classes = y_train.shape[1] #remove when uncomenting line 49
-'''
 y_test = np_utils.to_categorical(y_test)
 num_classes = y_test.shape[1]
 '''
+determine if num_classes is
+26(y_train.shape[1]) or
+1(y_test.shape[1])
+num_classes = y_test.shape[1]
+num_classes = y_train.shape[1]
+'''
+
 
 '''
-one hot encoding -> converts the 24 alphabets(represented as integers) to a categorical system where the machine understands
+one hot encoding -> converts the 26 alphabets(represented as integers) to a categorical system where the machine understands
 '''
 
 def baseline_model():
@@ -67,9 +68,9 @@ def baseline_model():
 # build the model
 model = baseline_model()
 
-# # Fit the model
-# model.fit(x_train, y_train, validation_data=(x_test, y_test), nb_epoch=10, batch_size=200, verbose=2)
-#
-# # Final evaluation of the model
-# scores = model.evaluate(x_test, y_test, verbose=0)
-# print("Baseline Error: %.2f%%" % (100-scores[1]*100))
+# Fit the model
+model.fit(x_train, y_train, validation_data=(x_test, y_test), nb_epoch=10, batch_size=200, verbose=2)
+
+# Final evaluation of the model
+scores = model.evaluate(x_test, y_test, verbose=0)
+print("Baseline Error: %.2f%%" % (100-scores[1]*100))
