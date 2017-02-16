@@ -27,7 +27,7 @@ def convert_train(option):
 			a = ord(i) - ord('a')
 			answer.append(int(a))
 
-        if option == y:
+        if option == 'y':
     		#selects 1000 images for testing out of the 40,000++ train images and removes it from the array
     		train_array = []
     		train_answer = []
@@ -49,7 +49,7 @@ def convert_train(option):
             val.append(val_array)
             val.append(val_answer)
 
-        elif int(option) == n:
+        elif int(option) == 'n':
             train_array = array
     		train_answer = answer
             val = None
@@ -63,12 +63,19 @@ def convert_train(option):
 
 		return train, val
 
+def convert_answer():
+	something
+
 if __name__ == '__main__':
 	start = time()
-    option = input('Do you want to initiate testing images(y/n)?\n')
-	train, val = convert_train(option)
-	with open('../data/train_image.pkl', 'wb') as w:
-		pickle.dump(train, w)
-	with open('../data/val_image.pkl', 'wb') as w:
-		pickle.dump(val, w)
+	convertion = input('Convert answer or data(answer/data)?\n')
+	if convertion == 'data':
+	    option = input('Do you want to initiate testing images(y/n)?\n')
+		train, val = convert_train(option)
+		with open('../data/train_image.pkl', 'wb') as w:
+			pickle.dump(train, w)
+		with open('../data/val_image.pkl', 'wb') as w:
+			pickle.dump(val, w)
+	elif convertion == 'answer':
+		something
 	print('The program ran for: {}'.format(time() - start))
