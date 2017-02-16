@@ -9,9 +9,8 @@ import matplotlib.pyplot as plt
 def convert_train(num):
 	with open('/home/li/Downloads/train.csv', 'r') as read:
 		#makes the training sample for keras
-		train_array = []
+		array = []
 		str_answer = []
-		train = []
 		for line in read:
 			doc = line.split(',')
 			if doc[0] == 'Id':
@@ -21,45 +20,40 @@ def convert_train(num):
 			x = x.reshape((16, 8))
 			x = x.tolist()
 			y = doc[1]
-			train_array.append(x)
+			array.append(x)
 			str_answer.append(y)
 
 		#convert a-b to their int counterparts
-		train_answer = []
+		answer = []
 		for i in str_answer:
 			a = ord(i) - ord('a')
-			train_answer.append(int(a))
+			answer.append(int(a))
 
-		#select 1000 images for testing out of the 40,000++ train images
-		a = sample(range(len(train_array)), 1000)
+		#selects 1000 images for testing out of the 40,000++ train images and removes it from the array
+		train_array = []
+		train_answer = []
 		test_array = []
 		test_answer = []
-		test = []
-		for i in a:
-			test_array.append(train_array[i])
-			test_answer.append(train_answer[i])
+		a = sample(range(len(array)), 1000)
+		for i in range(len(array)):
+			if i in a:
+				test_array.append(array[i])
+				test_answer.append(answer[i])
 
-		'''
-		Cant find way to complete this -> not sure how to remove specific elements from
-		train_answer corresponding to that removed from train_array. Cannot use list
-		comprehensions or all a-z will be removed from train_answer.
+			else:
+				train_array.append(array[i])
+				train_answer.append(answer[i])
 
-		#removal of the 1,000 images from train
-		print(len(train_array))
-		train_array = [a_list for a_list in train_array if a_list not in test_array]
-		print(len(test_array))
-		print(len(train_array))
-
-		Note: may remove more than 1,000 images due to repeated images in train.csv
-		'''
 
 		#format for train
-		train_array = np.asarray(train_array)
+		train = []
+		train_array = np.asarray(train_array, dtype = np.int)
 		train_answer = np.asarray(train_answer, dtype = np.int)
 		train.append(train_array)
 		train.append(train_answer)
 
 		#format for test
+		test = []
 		test_array = np.asarray(test_array, dtype = np.int)
 		test_answer = np.asarray(test_answer, dtype = np.int)
 		test.append(test_array)
