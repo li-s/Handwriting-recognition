@@ -3,10 +3,8 @@ import pickle
 from pprint import pprint
 from time import time
 from random import sample
-import skimage.io as skio
-import matplotlib.pyplot as plt
 
-def convert_train(num):
+def convert_train():
 	with open('/home/li/Downloads/train.csv', 'r') as read:
 		#makes the training sample for keras
 		array = []
@@ -59,22 +57,13 @@ def convert_train(num):
 		test.append(test_array)
 		test.append(test_answer)
 
-	#dont use this -- code changed, no longer functions
-	if int(num) == 1:
-		for i in range(15):
-			skio.imshow(train[i][0])
-			print(train[i][1])
-			plt.show()
-
-	#save train, test into file
-	else:
-		with open('../data/train_image.pkl', 'wb') as w:
-			pickle.dump(train, w)
-		with open('../data/test_image.pkl', 'wb') as w:
-			pickle.dump(test, w)
+		return train, test
 
 if __name__ == '__main__':
-	num = input('Enter a number: 1(unprogrammed) == show 15 images, 2 == save to file \nInput: ')
 	start = time()
-	convert_train(num)
-print('The program ran for: {}'.format(time() - start))
+	train, test = convert_train()
+	with open('../data/train_image.pkl', 'wb') as w:
+		pickle.dump(train, w)
+	with open('../data/test_image.pkl', 'wb') as w:
+		pickle.dump(test, w)
+	print('The program ran for: {}'.format(time() - start))
