@@ -15,7 +15,7 @@ Handwritten character recognition is a typical task of image classification, whi
 1. ~~Run `python3 predict.py [image_path]`, to get the prediction result from a given image path.~~
 2. Run `python3 training.py`, to train a new model. Training data specification is mentioned API reference.
 
-#### Testing results
+## Testing results
 
 The provided model is trained and tested using the data from a [Kaggle competition](https://inclass.kaggle.com/c/cs5339-prediction-competition). The accuracy of the model according to different parameter settings is showed in the table below:
 
