@@ -13,6 +13,12 @@ Image classification is the task of assigning an input image one label from a fi
 
 The ability of a computer to interpret handwritings from texts, such as photographs, paper texts, or pdfs. The computer is able to find the most plausible words for a given text with unclear words. (write more about the specific task of the Kaggle competition, like what is the input/output, the specific problem formulation and evaluation metric)
 
+#### Usage
+1. datasets.py -> Data should be in seperate folder 'data', in csv format. (look in sample.csv)
+2. training.py -> Trains the model (which you select), and saves it in seperate folder 'data'. There is a choice to remove validation images from training images
+3. testing.py ->  Loads and trains the model from file 'test.csv' in folder entitled 'data'
+4. answer_convert -> Converts the answers
+
 #### Dependencies
 1. [numpy](http://www.numpy.org/)
 2. [scikit-image](http://scikit-image.org/)

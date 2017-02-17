@@ -12,6 +12,7 @@ def convert(filename, position = None):
 		#Converts other file types to appropriate arrays
 		array = []
 		str_label = []
+		index = []
 		for line in read:
 			doc = line.split(',')
 			if doc[0] == 'Id':
@@ -21,8 +22,10 @@ def convert(filename, position = None):
 			x = x.reshape((16, 8))
 			x = x.tolist()
 			y = doc[1]
+			z = int(doc[0])
 			array.append(x)
 			str_label.append(y)
+			index.append(z)
 
 	#convert a-b to their int counterparts
 	label = []
@@ -30,10 +33,10 @@ def convert(filename, position = None):
 		a = ord(i) - ord('a')
 		label.append(int(a))
 
-	return array, label
+	return array, label, index
 
 def get_train_data(del_val_from_train = False):
-	array, label = convert('train')
+	array, label, index = convert('train')
 	#selects 1000 images for testing out of the 40,000++ train images
 	a = random.sample(range(len(array)), 1000)
 
@@ -72,10 +75,15 @@ def get_train_data(del_val_from_train = False):
 	return train, val
 
 def get_test_data():
-	array, label = convert('test')
+	array, label, index = convert('test')
+	# test_list_of_arrays = []
+	# for i in array:
+	# 	a_array = np.asarray(i, dtype = np.int)
+	# 	test_list_of_arrays.append(a_array)
 	test_array = np.asarray(array, dtype = np.int)
 	test_label = np.asarray(label, dtype = np.int)
-	return [test_array, test_label]
+
+	return [test_array, test_label], index
 
 if __name__ == '__main__':
 	#Convert datasets for training the model
@@ -85,12 +93,12 @@ if __name__ == '__main__':
 	elif del_val_from_train == 'n':
 		del_val_from_train = False
 
-	train, val = get_train_data(del_val_from_train)
+	train, val, index = get_train_data(del_val_from_train)
 	with open('data/val.pkl', 'wb') as w:
 		pickle.dump(val, w)
 	with open('data/train_removed_{}.pkl'.format(del_val_from_train), 'wb') as w:
 		pickle.dump(train, w)
 
-	test = get_test_data()
+	(test_array, test_label), index = get_test_data()
 	with open('data/test.pkl', 'wb') as w:
-		pickle.dump(test, w)
+		pickle.dump(test_array, w)
