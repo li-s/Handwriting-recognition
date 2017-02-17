@@ -1,4 +1,4 @@
-# Handwriting-recognition
+# Handwriting recognition
 
 ### Supervised vs unsupervised machine learning
 
