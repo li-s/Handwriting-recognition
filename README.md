@@ -14,10 +14,10 @@ Image classification is the task of assigning an input image one label from a fi
 The ability of a computer to interpret handwritings from texts, such as photographs, paper texts, or pdfs. The computer is able to find the most plausible words for a given text with unclear words. (write more about the specific task of the Kaggle competition, like what is the input/output, the specific problem formulation and evaluation metric)
 
 #### Usage
-1. datasets.py -> Data should be in seperate folder 'data', in csv format. (look in sample.csv)
-2. training.py -> Trains the model (which you select), and saves it in seperate folder 'data'. There is a choice to remove validation images from training images
-3. testing.py ->  Loads and trains the model from file 'test.csv' in folder entitled 'data'
-4. answer_convert -> Converts the answers
+1. `datasets.py`: Data should be in seperate folder 'data', in csv format. (look in sample.csv)
+2. `training.py`: Trains the model (which you select), and saves it in seperate folder 'data'. There is a choice to remove validation images from training images
+3. `testing.py`: Loads and trains the model from file 'test.csv' in folder entitled 'data'
+4. `answer_convert.py`: Converts the answers
 
 #### Dependencies
 1. [numpy](http://www.numpy.org/)
@@ -30,3 +30,4 @@ The ability of a computer to interpret handwritings from texts, such as photogra
 + [one hot encoding](https://www.quora.com/What-is-one-hot-encoding-and-when-is-it-used-in-data-science)
 + [Task](https://inclass.kaggle.com/c/cs5339-prediction-competition)
 + [What is an intuitive explanation for neural networks?](https://www.quora.com/What-is-an-intuitive-explanation-for-neural-networks)
++ [What is an intuitive explanation of overfitting?](https://www.quora.com/What-is-an-intuitive-explanation-of-overfitting)
