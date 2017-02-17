@@ -12,7 +12,7 @@ Handwritten character recognition is a typical task of image classification, whi
 + [tensorflow](https://www.tensorflow.org/) (for keras machine learning)
 
 #### Usage
-1. Run `python3 predict.py [image_path]`, to get the prediction result from a given image path.
+1. ~~Run `python3 predict.py [image_path]`, to get the prediction result from a given image path.~~
 2. Run `python3 training.py`, to train a new model. Training data specification is mentioned API reference.
 
 #### Testing results
