@@ -2,7 +2,7 @@
 
 Handwritten character recognition is a typical task of image classification, which is to assigning an input image one label from a fixed set of categories. It enables the ability of a computer to interpret handwritings from texts, such as photographs, paper texts, or pdfs. So the computer is able to find the most plausible words for a given text with unclear words. This project developed a toolbox to recognize an English character from an image.
 
-## Getting Started
+## Getting started
 
 #### Prerequisites
 + Python3
