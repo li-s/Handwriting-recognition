@@ -17,14 +17,14 @@ Handwritten character recognition is a typical task of image classification, whi
 
 ## Testing results
 
-The provided model is trained and tested using the data from a [Kaggle competition](https://inclass.kaggle.com/c/cs5339-prediction-competition). The accuracy of the model according to different parameter settings is showed in the table below:
+The provided model is trained and tested using the data from a [Kaggle competition](https://inclass.kaggle.com/c/cs5339-prediction-competition). The accuracy of the model according to different parameter settings is shown in the table below:
 
 | # epoch | batch size | testing accuray |
 | ------- | ---------- | --------------- |
 | 100 | 20 | 86.46% |
 | 200 | 64 | 85.03% |
 
-Some real prediction examples is showed below:
+Some real prediction examples is shown below:
 
 ## API reference
 
@@ -41,6 +41,7 @@ A machine undergoing supervised learning has 'correct' outputs for each input, a
 On the other hand, a machine undergoing unsupervised learning does not have correct outputs for the inputs. The machine is thus trained to generate plausible outputs for each individual output.
 
 #### Readings
++ [What is the difference between supervised and unsupervised learning algorithms?](https://www.quora.com/What-is-the-difference-between-supervised-and-unsupervised-learning-algorithms)
 + [One hot encoding](https://www.quora.com/What-is-one-hot-encoding-and-when-is-it-used-in-data-science)
 + [What is an intuitive explanation for neural networks?](https://www.quora.com/What-is-an-intuitive-explanation-for-neural-networks)
 + [What is an intuitive explanation of overfitting?](https://www.quora.com/What-is-an-intuitive-explanation-of-overfitting)
