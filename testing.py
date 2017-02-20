@@ -1,21 +1,21 @@
 import json
-from keras.models import model_from_json
 import numpy
+from keras.models import model_from_json
 from datasets import get_test_data
+from models import get_model_config
+from utils import answer_convert
 
-def load_model(model_name):
-    filepath_architechture = 'data/' + model_name + '.json'
+def load_model(filepath_weights, filepath_architechture):
     with open(filepath_architechture, 'r') as read:
         a = read.readlines()
         model = model_from_json(a[0])
 
-    filepath_weights = 'data/' + model_name + '.m'
     model.load_weights(filepath_weights, by_name=False)
 
     return model
 
-def prediction(model_name):
-    model = load_model(model_name)
+def prediction(model_config):
+    model = load_model(model_config['filepath_weight'], model_config['filepath_architechture'])
 
     (x_test, test_label), index = get_test_data()
 
@@ -29,17 +29,13 @@ def prediction(model_name):
     return result_alphabet, index
 
 if __name__ == '__main__':
-    select = input('Enter the model name you are using(1 = baseline model, 2 = simple_CNN_model, 3 = larger_CNN_model)\n')
-    if int(select) == 1:
-        model_name = 'baseline model'
-        a, b = prediction(model_name)
+    model_name = input('Select model:(baseline/simple_CNN/larger_CNN)\n')
+    model_config = get_model_config(model_name)
 
-    elif int(select) == 2:
-        model_name = 'simple_CNN_model'
-        a, b = prediction(model_name)
-
-    elif int(select) == 3:
-        model_name = 'larger_CNN_model'
-        a, b = prediction(model_name)
-
-    print(a)
+    result_alphabet, index_result = prediction(model_config)
+    
+    final_answer = answer_convert(result_alphabet, index_result)
+    with open('./data/final_answer.csv', 'w') as w:
+        w.write('Id,Prediction\n')
+        for i, j in final_answer:
+            w.write('{},{}\n'.format(i, j))

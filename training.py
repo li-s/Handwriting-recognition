@@ -5,13 +5,15 @@ import numpy
 numpy.random.seed(7)
 
 import json
-from time import time
-from datasets import get_train_data
 import pickle
+from datasets import get_train_data
 from keras.utils import np_utils
-from models import baseline_model, simple_CNN_model, larger_CNN_model
+from models import get_model_config
+from utils import profile
+
 #(x_train, y_train), (x_val, y_val) = mnist.load_data()
 
+@profile
 def training(model_type, x_train, y_train, x_val, y_val):
     '''
     format of mnist:
@@ -28,9 +30,9 @@ def training(model_type, x_train, y_train, x_val, y_val):
 
     # Build the model
     model = model_type(num_classes)
+    model.summary()
 
     # Compile model
-    model.summary()
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
     # Fit the model
@@ -42,44 +44,30 @@ def training(model_type, x_train, y_train, x_val, y_val):
     return scores, model
 
 if __name__ == '__main__':
-    del_val_from_train = input('Do you want to remove validation images(y/n)?\n')
-    if del_val_from_train == 'y':
-        del_val_from_train = True
-    elif del_val_from_train == 'n':
+    model_name = input('Select model:(baseline/simple_CNN/larger_CNN)\n')
+    del_val_from_train = input('Do you want to remove validation images([y]/n)?\n')
+
+    # get model configuration
+    model_config = get_model_config(model_name)
+
+    # del_val_from_train is set to True by default
+    if del_val_from_train == 'n':
         del_val_from_train = False
+    else:
+        del_val_from_train = True
     (x_train, y_train), (x_val, y_val) = get_train_data(del_val_from_train)
 
-    # Selects model
-    select = input('Select model:\n(1 = baseline model, 2 = simple CNN model, 3 = larger CNN model)\n')
-    start = time()
-    if int(select) == 1:
-        func = baseline_model
-        filepath_weight = './data/baseline.m'
-        filepath_architechture = './data/baseline.json'
-
-    elif int(select) == 2:
-        func = simple_CNN_model
-        filepath_weight = './data/simple_CNN_model.m'
-        filepath_architechture = './data/simple_CNN_model.json'
-
-    elif int(select) == 3:
-        func = larger_CNN_model
-        filepath_weight = './data/larger_CNN_model.m'
-        filepath_architechture = './data/larger_CNN_model.json'
-
     #Runs model
-    scores, model = training(func, x_train, y_train, x_val, y_val)
-
+    scores, model = training(model_config['model_builder'], x_train, y_train, x_val, y_val)
     print(type(model))
 
     #Saves model weights
-    model.save_weights(filepath_weight)
-    print('Model weights saved in {}.'.format(filepath_weight))
+    model.save_weights(model_config['filepath_weight'])
+    print('Model weights saved in {}.'.format(model_config['filepath_weight']))
 
     #saves model architechture
-    with open(filepath_architechture, 'w') as outfile:
+    with open(model_config['filepath_architechture'], 'w') as outfile:
         outfile.write(model.to_json())
-    print('Model architechture saved in {}.'.format(filepath_architechture))
+    print('Model architechture saved in {}.'.format(model_config['filepath_architechture']))
 
-    print('Baseline Error: {}%'.format(100-scores[1]*100))
-    print('The program took: {}'.format(time() - start))
+    print('{} validation error: {}%'.format(model_name, 100 - scores[1] * 100))
