@@ -19,7 +19,7 @@ if __name__ == '__main__':
         img = np.asarray(images_3[i], dtype = np.uint8)
         img = img * 255
         skio.imshow(img)
-        img = rescale(img, 10)
+        img = rescale(img, 4)
         filepath = './data/show_image' + str(i) + '.jpg'
         skio.imsave(filepath, img)
         # skio.imsave('./data/show_image.jpg', img)
