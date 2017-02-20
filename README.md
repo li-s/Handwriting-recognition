@@ -28,11 +28,9 @@ The provided model is trained and tested using the data from a [Kaggle competiti
 
 
 Some real prediction examples is shown below:  
-![image 1](https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image0.jpg)
-
-![image 2](https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image1.jpg)
-
-![image 3](https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image2.jpg)
+<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image0.jpg" height="30">: "i" (conf. = 60%),
+<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image1.jpg" height="30">: "d" (conf. = 60%),
+<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image2.jpg" height="30">: "m" (conf. = 60%).
 
 ## API reference
 
