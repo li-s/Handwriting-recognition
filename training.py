@@ -20,28 +20,25 @@ def training(model_type, x_train, y_train, x_val, y_val):
 	format of mnist:
 	((([x_train], dtype = unit8), ([y_train])), (([x_val]), dtype = unit8), ([y_val])))
 	'''
+	# Print out size of training sample
 	size_of_batch = x_train.shape[0]
 	print(size_of_batch)
-	# flatten 28*28 images to a 784 vector for each image
-	num_pixels = x_train.shape[1] * x_train.shape[2]
-	x_train = x_train.reshape(x_train.shape[0], num_pixels).astype('float32')
-	x_val = x_val.reshape(x_val.shape[0], num_pixels).astype('float32')
 
-	#one hot encoding -> converts the 26 alphabets(represented as integers) to a categorical system where the machine understands
+	# One hot encoding -> converts the 26 alphabets(represented as integers) to a categorical system where the machine understands
 	y_train = np_utils.to_categorical(y_train)
 	y_val = np_utils.to_categorical(y_val)
 	num_classes = y_val.shape[1]
 
-	# build the model
-	model = model_type(num_pixels, num_classes)
+	# Build the model
+	x_train, x_val, model = model_type(x_train, x_val, num_classes)
 
 	# Fit the model
-	model.fit(x_train, y_train, validation_data=(x_val, y_val), nb_epoch=200, batch_size=64, verbose=2)
+	model.fit(x_train, y_train, validation_data=(x_val, y_val), nb_epoch=10, batch_size=64, verbose=2)
 
 	# Final evaluation of the model
 	scores = model.evaluate(x_val, y_val, verbose=0)
 
-#	model.summary()
+	# model.summary()
 
 	return scores, model
 
@@ -53,10 +50,9 @@ if __name__ == '__main__':
 		del_val_from_train = False
 	(x_train, y_train), (x_val, y_val) = get_train_data(del_val_from_train)
 
-	#selects model
-	#select = input('Select model:\n(1 = baseline model, 2 = simple CNN model, 3 = larger CNN model)\n')
+	# Selects model
+	select = input('Select model:\n(1 = baseline model, 2 = simple CNN model, 3 = larger CNN model)\n')
 	start = time()
-	select = 1
 	if int(select) == 1:
 		func = baseline_model
 		filepath_weight = './data/baseline.m'
