@@ -6,8 +6,8 @@ import random
 
 random.seed(1)
 
-def convert(filename, position = None):
-	filepath = 'data/' + filename + '.csv'
+def convert(model_name):
+	filepath = 'data/' + model_name + '.csv'
 	with open(filepath, 'r') as read:
 		#Converts other file types to appropriate arrays
 		array = []

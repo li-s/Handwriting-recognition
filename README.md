@@ -19,10 +19,13 @@ Handwritten character recognition is a typical task of image classification, whi
 
 The provided model is trained and tested using the data from a [Kaggle competition](https://inclass.kaggle.com/c/cs5339-prediction-competition). The accuracy of the model according to different parameter settings is shown in the table below:
 
-| # epoch | batch size | testing accuray |
-| ------- | ---------- | --------------- |
-| 100 | 20 | 86.46% |
-| 200 | 64 | 85.03% |
+| # Model | epoch | batch size | testing accuray |
+| ------- | ----- | ---------- | --------------- |
+| Baseline | 100 | 20 | 86.46% |
+| Baseline | 200 | 64 | 85.03% |
+| simple CNN | 100 | 64 | 90.74% |
+
+
 
 Some real prediction examples is shown below:
 
