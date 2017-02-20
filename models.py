@@ -24,11 +24,11 @@ def baseline_model(x_train, x_val, num_classes):
 
 def simple_CNN_model(x_train, x_val, num_classes):
 	print(x_train.shape)
-	x_train = x_train.reshape(x_train.shape[0], 1, 8, 16).astype('float32')
-	x_val = x_val.reshape(x_val.shape[0], 1, 8, 16).astype('float32')
+	x_train = x_train.reshape(x_train.shape[0], 1, 16, 8).astype('float32')
+	x_val = x_val.reshape(x_val.shape[0], 1, 16, 8).astype('float32')
 
 	model = Sequential()
-	model.add(Convolution2D(32, 5, 5, border_mode='valid', input_shape=(1, 8, 16), activation='relu'))
+	model.add(Convolution2D(32, 5, 5, border_mode='valid', input_shape=(1, 16, 8), activation='relu'))
 	model.add(MaxPooling2D(pool_size=(2, 2)))
 	model.add(Dropout(0.2))
 	model.add(Flatten())
