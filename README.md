@@ -27,7 +27,7 @@ The provided model is trained and tested using the data from a [Kaggle competiti
 
 
 
-Some real prediction examples is shown below:
+Some real prediction examples is shown below:  
 ![image 1](https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image0.jpg)
 
 ![image 2](https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image1.jpg)

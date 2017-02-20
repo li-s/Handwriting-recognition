@@ -29,13 +29,15 @@ def training(model_type, x_train, y_train, x_val, y_val):
     # Build the model
     model = model_type(num_classes)
 
+    # Compile model
+    model.summary()
+    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
     # Fit the model
     model.fit(x_train, y_train, validation_data=(x_val, y_val), nb_epoch=100, batch_size=64, verbose=2)
 
     # Final evaluation of the model
     scores = model.evaluate(x_val, y_val, verbose=0)
-
-    # model.summary()
 
     return scores, model
 

@@ -16,9 +16,6 @@ def baseline_model(num_classes):
     model.add(Reshape((128,), input_shape = (16,8)))
     model.add(Dense(128, input_dim=128, init='normal', activation='relu'))
     model.add(Dense(num_classes, init='normal', activation='softmax'))
-    model.summary()
-    # Compile model
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     return model
 
 def simple_CNN_model(num_classes):
@@ -30,10 +27,6 @@ def simple_CNN_model(num_classes):
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
     model.add(Dense(num_classes, activation='softmax'))
-    model.summary()
-    # Compile model
-    sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-    model.compile(loss='categorical_crossentropy', optimizer='sgd', metrics=['accuracy'])
     return model
 
 def larger_CNN_model(num_classes): #need to reshape
@@ -48,7 +41,4 @@ def larger_CNN_model(num_classes): #need to reshape
     model.add(Dense(128, activation='relu'))
     model.add(Dense(50, activation='relu'))
     model.add(Dense(num_classes, activation='softmax'))
-    model.summary()
-    # Compile model
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     return model
