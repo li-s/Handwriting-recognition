@@ -4,15 +4,15 @@ import matplotlib.pyplot as plt
 from skimage.transform import rescale
 import numpy as np
 from datasets import convert
-from random import randint
+import random as rn
 
 def profile(func):
-  def wrap(*args, **kwargs):
-    started_at = time.time()
-    result = func(*args, **kwargs)
-    print('\t%s comsumed %.1fs' % (func.__name__, time.time() - started_at))
-    return result
-  return wrap
+    def wrap(*args, **kwargs):
+        started_at = time.time()
+        result = func(*args, **kwargs)
+        print('\t%s comsumed %.1fs' % (func.__name__, time.time() - started_at))
+        return result
+    return wrap
 
 def answer_convert(result_alphabet, index_result):
     """
@@ -35,17 +35,17 @@ def get_image_samples(n, show = False):
     array, label, index = convert('test')
     images = []
 
-    positions = sample(range(n), 3)
+    positions = rn.sample(range(n), 3)
     for position in positions:
         images.append(array[position])
 
     for i, img in enumerate(images):
         img = np.asarray(img, dtype = np.uint8)
         img = img * 255
-        img = rescale(img, 4)
+        # img = rescale(img, 4)
         if show:
-          skio.imshow(img)
-          plt.show()
+            skio.imshow(img)
+            plt.show()
         filepath = './data/show_image{}.jpg'.format(i)
         skio.imsave(filepath, img)
 

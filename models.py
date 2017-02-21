@@ -1,3 +1,6 @@
+import numpy
+from keras.utils import np_utils
+
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
@@ -12,7 +15,7 @@ K.set_image_dim_ordering('th')
 
 def get_model_config(model_name):
     """
-    Handle all configuaration in one place, so that no need to 
+    Handle all configuaration in one place, so that no need to
     change filepaths elsewhere.
     """
     model_config = {}
@@ -49,9 +52,9 @@ def simple_CNN_model(num_classes):
 def larger_CNN_model(num_classes): #need to reshape
     model = Sequential()
     model.add(Reshape((1, 16, 8), input_shape = (16, 8)))
-    model.add(Convolution2D(30, 5, 5, border_mode='valid', activation='relu'))
+    model.add(Convolution2D(30, 5, 5, border_mode='same', activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Convolution2D(15, 3, 3, activation='relu'))
+    model.add(Convolution2D(15, 3, 3, border_mode='same', activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.2))
     model.add(Flatten())
