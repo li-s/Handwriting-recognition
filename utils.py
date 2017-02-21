@@ -42,7 +42,7 @@ def get_image_samples(n, show = False):
     for i, img in enumerate(images):
         img = np.asarray(img, dtype = np.uint8)
         img = img * 255
-        # img = rescale(img, 4)
+        img = rescale(img, 4)
         if show:
             skio.imshow(img)
             plt.show()
