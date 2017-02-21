@@ -1,13 +1,12 @@
 import numpy as np
 import pickle
 from pprint import pprint
-from time import time
 import random
 
 random.seed(1701)
 
-def convert(model_name):
-	filepath = 'data/' + model_name + '.csv'
+def convert(split_name):
+	filepath = 'data/' + split_name + '.csv'
 	with open(filepath, 'r') as read:
 		#Converts other file types to appropriate arrays
 		array = []
@@ -65,7 +64,7 @@ def get_train_data(del_val_from_train = False, num_val_sample = 4000):
 	train.append(train_array)
 	train.append(train_label)
 
-    #format for val
+  #format for val
 	val = []
 	val_array = np.asarray(val_array, dtype = np.float32)
 	val_label = np.asarray(val_label, dtype = np.int)

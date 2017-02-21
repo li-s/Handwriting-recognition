@@ -5,6 +5,7 @@ import json
 import pickle
 from datasets import get_train_data
 from keras.utils import np_utils
+from keras.optimizers import SGD
 from models import get_model_config
 from utils import profile
 
@@ -26,10 +27,11 @@ def training(model_type, x_train, y_train, x_val, y_val):
     model.summary()
 
     # Compile model
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+    sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=False)
+    model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
     # Fit the model
-    model.fit(x_train, y_train, validation_data=(x_val, y_val), nb_epoch=20, batch_size=64, verbose=2)
+    model.fit(x_train, y_train, validation_data=(x_val, y_val), nb_epoch=100, batch_size=60, verbose=2)
 
     # Final evaluation of the model
     scores = model.evaluate(x_val, y_val, verbose=0)
@@ -38,7 +40,7 @@ def training(model_type, x_train, y_train, x_val, y_val):
     return scores, model
 
 if __name__ == '__main__':
-    model_name = input('Select model:(baseline/simple_CNN/larger_CNN)\n')
+    model_name = input('Select model:(baseline/simple_CNN/[larger_CNN])\n')
     del_val_from_train = input('Do you want to remove validation images([y]/n)?\n')
 
     # get model configuration
