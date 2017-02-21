@@ -31,23 +31,24 @@ def answer_convert(result_alphabet, index_result):
 
     return final_answer_for_submission
 
-def get_image_samples(n, show = False):
+def get_image_samples(n, show = False, save = True):
     array, label, index = convert('test')
     images = []
 
-    positions = rn.sample(range(n), 3)
+    positions = rn.sample(range(len(array)), n)
     for position in positions:
         images.append(array[position])
 
     for i, img in enumerate(images):
         img = np.asarray(img, dtype = np.uint8)
         img = img * 255
-        img = rescale(img, 4)
         if show:
             skio.imshow(img)
             plt.show()
-        filepath = './data/show_image{}.jpg'.format(i)
-        skio.imsave(filepath, img)
+        if save:
+            filepath = './data/show_image{}.jpg'.format(i)
+            img = rescale(img, 4)
+            skio.imsave(filepath, img)
 
 if __name__ == '__main__':
     get_image_samples(3)
