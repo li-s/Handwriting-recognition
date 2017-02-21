@@ -34,9 +34,9 @@ def answer_convert(result_alphabet, index_result):
 def get_image_samples(n, show = False):
     array, label, index = convert('test')
     images = []
-    for i in range(n):
-        # TODO: positions can be same if bad luck
-        position = randint(0, len(array))
+
+    positions = sample(range(n), 3)
+    for position in positions:
         images.append(array[position])
 
     for i, img in enumerate(images):
