@@ -1,6 +1,3 @@
-import numpy
-from keras.utils import np_utils
-
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
@@ -8,6 +5,7 @@ from keras.layers import Flatten
 from keras.layers.core import Reshape
 from keras.layers.convolutional import Convolution2D
 from keras.layers.convolutional import MaxPooling2D
+from keras.regularizers import l2
 from keras import backend as K
 import os
 
@@ -52,13 +50,13 @@ def simple_CNN_model(num_classes):
 def larger_CNN_model(num_classes): #need to reshape
     model = Sequential()
     model.add(Reshape((1, 16, 8), input_shape = (16, 8)))
-    model.add(Convolution2D(20, 5, 5, border_mode='same', activation='relu'))
+    model.add(Convolution2D(32, 5, 5, border_mode='same', activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Convolution2D(15, 3, 3, border_mode='same', activation='relu'))
+    model.add(Convolution2D(64, 3, 3, border_mode='same', activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.2))
     model.add(Flatten())
-    model.add(Dense(128, activation='relu'))
-    model.add(Dense(50, activation='relu'))
+    model.add(Dense(256, activation='relu'))
+    # model.add(Dense(50, activation='relu'))
     model.add(Dense(num_classes, activation='softmax'))
     return model

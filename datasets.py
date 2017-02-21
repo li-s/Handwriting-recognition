@@ -4,7 +4,7 @@ from pprint import pprint
 from time import time
 import random
 
-random.seed(1)
+random.seed(1701)
 
 def convert(model_name):
 	filepath = 'data/' + model_name + '.csv'
@@ -35,10 +35,10 @@ def convert(model_name):
 
 	return array, label, index
 
-def get_train_data(del_val_from_train = False):
+def get_train_data(del_val_from_train = False, num_val_sample = 4000):
 	array, label, index = convert('train')
-	#selects 1000 images for testing out of the 40,000++ train images
-	a = random.sample(range(len(array)), 1000)
+	#selects images for validation out of the 40,000++ train images
+	a = random.sample(range(len(array)), num_val_sample)
 
 	val_array = []
 	val_label = []
