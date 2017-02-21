@@ -8,6 +8,7 @@ Handwritten character recognition is a typical task of image classification, whi
 + Python3
 + [numpy](http://www.numpy.org/)
 + [matplotlib](http://matplotlib.org/)
++ scikit-image
 + [keras](http://machinelearningmastery.com/handwritten-digit-recognition-using-convolutional-neural-networks-python-keras/)
 + [tensorflow](https://www.tensorflow.org/) (for keras machine learning)
 
@@ -25,8 +26,6 @@ The provided model is trained and tested using the data from a [Kaggle competiti
 | larger CNN | 100 | 64 | 91.98% |
 | Baseline | 100 | 20 | 86.46% |
 | Baseline | 200 | 64 | 85.03% |
-
-
 
 Some real prediction examples is shown below:  
 <img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image0.jpg" height="30">: "o" (conf. = 60%),
