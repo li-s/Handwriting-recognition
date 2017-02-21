@@ -21,15 +21,16 @@ The provided model is trained and tested using the data from a [Kaggle competiti
 
 | # Model | epoch | batch size | testing accuray |
 | ------- | ----- | ---------- | --------------- |
+| simple CNN | 100 | 64 | 90.74% |
+| larger CNN | 100 | 64 | 91.98% |
 | Baseline | 100 | 20 | 86.46% |
 | Baseline | 200 | 64 | 85.03% |
-| simple CNN | 100 | 64 | 90.74% |
 
 
 
 Some real prediction examples is shown below:  
-<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image0.jpg" height="30">: "i" (conf. = 60%),
-<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image1.jpg" height="30">: "d" (conf. = 60%),
+<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image0.jpg" height="30">: "o" (conf. = 60%),
+<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image1.jpg" height="30">: "m" (conf. = 60%),
 <img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image2.jpg" height="30">: "m" (conf. = 60%).
 
 ## API reference

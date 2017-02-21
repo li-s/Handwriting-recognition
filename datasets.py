@@ -60,14 +60,14 @@ def get_train_data(del_val_from_train = False):
 
 	#format for train
 	train = []
-	train_array = np.asarray(train_array, dtype = np.int)
+	train_array = np.asarray(train_array, dtype = np.float32)
 	train_label = np.asarray(train_label, dtype = np.int)
 	train.append(train_array)
 	train.append(train_label)
 
     #format for val
 	val = []
-	val_array = np.asarray(val_array, dtype = np.int)
+	val_array = np.asarray(val_array, dtype = np.float32)
 	val_label = np.asarray(val_label, dtype = np.int)
 	val.append(val_array)
 	val.append(val_label)
@@ -80,7 +80,7 @@ def get_test_data():
 	# for i in array:
 	# 	a_array = np.asarray(i, dtype = np.int)
 	# 	test_list_of_arrays.append(a_array)
-	test_array = np.asarray(array, dtype = np.int)
+	test_array = np.asarray(array, dtype = np.float32)
 	test_label = np.asarray(label, dtype = np.int)
 
 	return [test_array, test_label], index
