@@ -12,7 +12,7 @@ from utils import profile
 #(x_train, y_train), (x_val, y_val) = mnist.load_data()
 
 @profile
-def training(model_type, x_train, y_train, x_val, y_val):
+def training(model_type, x_train, y_train, x_val, y_val, image_shape):
     '''
     format of mnist:
     ((([x_train], dtype = unit8), ([y_train])), (([x_val]), dtype = unit8), ([y_val])))
@@ -23,7 +23,7 @@ def training(model_type, x_train, y_train, x_val, y_val):
     num_classes = y_val.shape[1]
 
     # Build the model
-    model = model_type(num_classes)
+    model = model_type(num_classes, image_shape)
     model.summary()
 
     # Compile model
@@ -55,8 +55,13 @@ if __name__ == '__main__':
         del_val_from_train = True
     (x_train, y_train), (x_val, y_val) = get_train_data(del_val_from_train)
 
+    image_shape = [8, 8]
+    image_shape[0] = x_train.shape[1]
+    image_shape[1] = x_train.shape[2]
+    image_shape = tuple(image_shape)
+
     #Runs model
-    scores, model = training(model_config['model_builder'], x_train, y_train, x_val, y_val)
+    scores, model = training(model_config['model_builder'], x_train, y_train, x_val, y_val, image_shape)
 
     #Saves model weights
     model.save_weights(model_config['filepath_weight'])
