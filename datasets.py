@@ -1,5 +1,5 @@
 import numpy as np
-from skimage.transform import resize
+from skimage.transform import resize, rotate, AffineTransform
 import skimage.io as skio
 import matplotlib.pyplot as plt
 import inspect
@@ -7,6 +7,7 @@ import inspect
 import pickle
 from pprint import pprint
 import random
+
 
 random.seed(1701)
 
@@ -21,11 +22,19 @@ def convert(split_name):
             doc = line.split(',')
             if doc[0] == 'Id':
                 continue
-            a = [int(ele) for ele in doc[4:]]
-            b = np.asarray(a, dtype = np.int)
-            b = b.reshape((16, 8))
-            b = b.tolist()
             c = doc[1]
+            a = [int(ele) for ele in doc[4:]]
+            b = np.asarray(a, dtype = np.float32)
+            b = b.reshape((16, 8))
+            # Resize images
+            z = AffineTransform(scale=(8, 8), rotation=None, shear=None)
+            skio.imshow_collection([b, z])
+            plt.show()
+
+            angle = random.randint(-15, 15)
+            b = rotate(b, angle)
+            b = b.tolist()
+
             d = int(doc[0])
             a_list.append(b)
             str_label.append(c)
@@ -39,34 +48,8 @@ def convert(split_name):
 
     return a_list, label, index
 
-def image_preprocess():
-    caller = inspect.stack()[1][3]
-    if caller == 'get_train_data':
-        a_list, label, index = convert('train')
-    elif caller == 'get_test_data':
-        a_list, label, index = convert('test')
-    else:
-        raise Exception('function import error')
-
-    array = []
-    for i in a_list:
-        i = np.asarray(i, dtype = np.float64)
-
-        # Remove all rows with only 0 element
-        i = i[~(i==0).all(1)]
-
-        # Resize image to (8, 8)
-        i = resize(i, (8, 8))
-
-        # Convert images to list format
-        a = i.tolist()
-        array.append(a)
-
-    a_list = array
-    return a_list, label, index
-
 def get_train_data(del_val_from_train = False, num_val_sample = 4000):
-    a_list, label, index = image_preprocess()
+    a_list, label, index = convert('train')
     #selects images for validation out of the 40,000++ train images
     a = random.sample(range(len(a_list)), num_val_sample)
 
@@ -105,7 +88,7 @@ def get_train_data(del_val_from_train = False, num_val_sample = 4000):
     return train, val
 
 def get_test_data():
-    a_list, label, index = image_preprocess()
+    a_list, label, index = convert('test')
     # test_list_of_arrays = []
     # for i in a_list:
     # 	a_array = np.asarray(i, dtype = np.int)
