@@ -12,6 +12,8 @@ import os
 
 K.set_image_dim_ordering('th')
 
+from keras.models import model_from_json
+
 def get_model_config(model_name):
     """
     Handle all configuaration in one place, so that no need to
@@ -63,3 +65,28 @@ def larger_CNN_model(num_classes, image_shape): #need to reshape
 		# model.add(Dense(256, activation='relu', W_regularizer=l2(0.1)))
     model.add(Dense(num_classes, activation='softmax'))
     return model
+
+def save_model(model, model_config):
+    #Saves model weights
+    model.save_weights(model_config['filepath_weight'])
+    print('Model weights saved in {}.'.format(model_config['filepath_weight']))
+
+    #saves model architechture
+    with open(model_config['filepath_architechture'], 'w') as outfile:
+        outfile.write(model.to_json())
+    print('Model architechture saved in {}.'.format(model_config['filepath_architechture']))
+
+def load_model(filepath_weights, filepath_architechture):
+    with open(filepath_architechture, 'r') as read:
+        a = read.readlines()
+        model = model_from_json(a[0])
+
+    model.load_weights(filepath_weights, by_name=False)
+
+    return model
+
+def get_model_name():
+    model_name = input('Select model:(baseline/simple_CNN/[larger_CNN])\n')
+    if model_name == '':
+        model_name = 'larger_CNN'
+    return model_name

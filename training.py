@@ -1,12 +1,11 @@
 import numpy
 numpy.random.seed(1701)
 
-import json
-import pickle
-from datasets import get_train_data
 from keras.utils import np_utils
 from keras.optimizers import SGD
-from models import get_model_config
+
+from datasets import get_train_data
+from models import get_model_config, get_model_name, save_model
 from utils import profile
 
 #(x_train, y_train), (x_val, y_val) = mnist.load_data()
@@ -40,34 +39,27 @@ def training(model_type, x_train, y_train, x_val, y_val, image_shape):
     return scores, model
 
 if __name__ == '__main__':
-    model_name = input('Select model:(baseline/simple_CNN/[larger_CNN])\n')
+    model_name = get_model_name()
     del_val_from_train = input('Do you want to remove validation images([y]/n)?\n')
 
-    # get model configuration
-    if model_name == '':
-        model_name = 'larger_CNN'
-    model_config = get_model_config(model_name)
-
-    # del_val_from_train is set to True by default
+    # Del_val_from_train is set to True by default
     if del_val_from_train == 'n':
         del_val_from_train = False
     else:
         del_val_from_train = True
     (x_train, y_train), (x_val, y_val) = get_train_data(del_val_from_train)
 
-    image_shape = [8, 8]
+    # Finds the image shape, and passes it to the model for reshape, initial image shape is unimportant
+    image_shape = [1, 1]
     image_shape[0] = x_train.shape[1]
     image_shape[1] = x_train.shape[2]
     image_shape = tuple(image_shape)
 
-    #Runs model
+    # Get model configuration
+    model_config = get_model_config(model_name)
+
+    # Runs model
     scores, model = training(model_config['model_builder'], x_train, y_train, x_val, y_val, image_shape)
 
-    #Saves model weights
-    model.save_weights(model_config['filepath_weight'])
-    print('Model weights saved in {}.'.format(model_config['filepath_weight']))
-
-    #saves model architechture
-    with open(model_config['filepath_architechture'], 'w') as outfile:
-        outfile.write(model.to_json())
-    print('Model architechture saved in {}.'.format(model_config['filepath_architechture']))
+    # Saves model
+    save_model(model, model_config)
