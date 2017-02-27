@@ -29,9 +29,9 @@ The provided model is trained and tested using the data from a [Kaggle competiti
 | Baseline | 200 | 64 | 85.03% |
 
 Some real prediction examples is shown below:  
-<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image0.jpg" height="30">: "r" (conf. = 98.33%),
-<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image1.jpg" height="30">: "g" (conf. = 46.35%),
-<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image2.jpg" height="30">: "i" (conf. = 77.43%).
+<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image0.jpg" height="30">: "r" (conf. = 99.83%),
+<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image1.jpg" height="30">: "f" (conf. = 52.98%),
+<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image2.jpg" height="30">: "i" (conf. = 100.00%).
 
 ## API reference
 

@@ -9,7 +9,7 @@ from pprint import pprint
 import random
 
 
-random.seed(1721)
+random.seed(171)
 
 def convert(split_name):
     filepath = 'data/' + split_name + '.csv'
