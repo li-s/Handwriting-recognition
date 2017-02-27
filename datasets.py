@@ -1,5 +1,5 @@
 import numpy as np
-from skimage.transform import resize, rotate, AffineTransform
+from skimage.transform import resize, rotate
 import skimage.io as skio
 import matplotlib.pyplot as plt
 import inspect
@@ -27,12 +27,12 @@ def convert(split_name):
             b = np.asarray(a, dtype = np.float32)
             b = b.reshape((16, 8))
             # Resize images
-            z = AffineTransform(scale=(8, 8), rotation=None, shear=None)
-            skio.imshow_collection([b, z])
-            plt.show()
-
+            a = b[~(b==0).all(1)]
+            b = resize(a, (8,8))
             angle = random.randint(-15, 15)
-            b = rotate(b, angle)
+            z = rotate(b, angle)
+            skio.imshow_collection([a, b, z])
+            plt.show()
             b = b.tolist()
 
             d = int(doc[0])
