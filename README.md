@@ -13,7 +13,7 @@ Handwritten character recognition is a typical task of image classification, whi
 + [tensorflow](https://www.tensorflow.org/) (for keras machine learning)
 
 #### Usage
-1. ~~Run `python3 predict.py [image_path]`, to get the prediction result from a given image path.~~
+1. Run `python3 predict.py [image_path]`, to get the prediction result from a given image path.
 2. Run `python3 training.py`, to train a new model. Training data specification is mentioned API reference.
 
 ## Testing results
@@ -29,9 +29,9 @@ The provided model is trained and tested using the data from a [Kaggle competiti
 | Baseline | 200 | 64 | 85.03% |
 
 Some real prediction examples is shown below:  
-<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image0.jpg" height="30">: "o" (conf. = 60%),
-<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image1.jpg" height="30">: "m" (conf. = 60%),
-<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image2.jpg" height="30">: "m" (conf. = 60%).
+<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image0.jpg" height="30">: "r" (conf. = 98.33%),
+<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image1.jpg" height="30">: "g" (conf. = 46.35%),
+<img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image2.jpg" height="30">: "i" (conf. = 77.43%).
 
 ## API reference
 

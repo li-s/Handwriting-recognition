@@ -5,6 +5,7 @@ from skimage.transform import rescale
 import numpy as np
 from datasets import convert
 import random as rn
+import argparse
 
 def profile(func):
     def wrap(*args, **kwargs):
@@ -40,8 +41,7 @@ def get_image_samples(n, show = False, save = True):
         images.append(array[position])
 
     for i, img in enumerate(images):
-        img = np.asarray(img, dtype = np.uint8)
-        img = img * 255
+        img = np.asarray(img, dtype = np.float64)
         if show:
             skio.imshow(img)
             plt.show()
@@ -49,6 +49,15 @@ def get_image_samples(n, show = False, save = True):
             filepath = './data/show_image{}.jpg'.format(i)
             img = rescale(img, 4)
             skio.imsave(filepath, img)
+
+def ask_for_file_particulars():
+    parser = argparse.ArgumentParser(description="Input file location of image to test with trained model.")
+    parser.add_argument("location", help="Location of the image")
+    # parser.add_argument('length', help ='Length of the image', type = int)
+    # parser.add_argument('width', help ='Width of the image', type = int)
+    args = parser.parse_args()
+    # size = (args.length, args.width)
+    return args.location
 
 if __name__ == '__main__':
     get_image_samples(3)

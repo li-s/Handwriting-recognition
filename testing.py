@@ -13,7 +13,6 @@ def prediction(model_config):
 
     result = numpy.argmax(prediction, axis=1)
 
-    #result = numpy.amax(prediction, axis=1)
     result = result.tolist()
     result_alphabet = [chr(int(i) + ord('a')) for i in result]
     return result_alphabet, index
