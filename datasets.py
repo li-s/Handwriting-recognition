@@ -31,14 +31,29 @@ def convert(split_name):
             b = resize(b, (16, 16))
             angle = random.randint(-30, 30)
             z = rotate(b, angle)
-            # skio.imshow_collection([b, z])
-            # plt.show()
-            b = b.tolist()
 
-            d = int(doc[0])
-            a_list.append(b)
-            str_label.append(c)
-            index.append(d)
+            if inspect.stack()[1][3] == 'answer_convert':
+                b = b.tolist()
+                d = int(doc[0])
+                a_list.append(b)
+                str_label.append(c)
+                index.append(d)
+            elif inspect.stack()[1][3] == 'get_test_data':
+                b = b.tolist()
+                d = int(doc[0])
+                a_list.append(b)
+                str_label.append(c)
+                index.append(d)
+            else:
+                z = z.tolist()
+                b = b.tolist()
+                d = int(doc[0])
+                a_list.append(z)
+                a_list.append(b)
+                str_label.append(c)
+                str_label.append(c)
+                index.append(d)
+                index.append(d)
 
     #convert a-b to their int counterparts
     label = []
@@ -55,6 +70,8 @@ def get_train_data(del_val_from_train = False, num_val_sample = 4000):
 
     val_array = []
     val_label = []
+    train_array = []
+    train_label = []
     for i in a:
         val_array.append(a_list[i])
         val_label.append(label[i])
@@ -62,14 +79,23 @@ def get_train_data(del_val_from_train = False, num_val_sample = 4000):
     if del_val_from_train == False:
         train_array = a_list
         train_label = label
-    #Removes validation images from train
+    #Removes all validation images from train including ones not called by a. (line 54)
     elif del_val_from_train == True:
-        train_array = []
-        train_label = []
+        # for i in val_array:
+        removal_positions =  [x for x, y in enumerate(a_list) if y in val_array]
         for i in range(len(a_list)):
-            if not i in a:
+            if i not in removal_positions:
                 train_array.append(a_list[i])
                 train_label.append(label[i])
+
+    # Finds out how many repetitions from val there are in train.
+    # if del_val_from_train == True:
+    #     b = 0
+    #     for i in val_array:
+    #         for j in train_array:
+    #             if i == j:
+    #                 b += 1
+    #     print('found {}'.format(b))
 
     #format for train
     train = []

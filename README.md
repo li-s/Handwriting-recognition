@@ -24,7 +24,8 @@ The provided model is trained and tested using the data from a [Kaggle competiti
 | ------- | ----- | ---------- | --------------- |
 | simple CNN | 100 | 64 | 90.74% |
 | larger CNN | 100 | 64 | 91.98% |
-| 30x3x3,50x3x3,200| 100 | 60 | 93.33% |
+| 30x3x3, 50x3x3, 200 | 100 | 60 | 92.84% |
+| 30x3x3, 50x3x3, 200 | 100 | 60 | 93.33% |
 | Baseline | 100 | 20 | 86.46% |
 | Baseline | 200 | 64 | 85.03% |
 
@@ -34,12 +35,12 @@ Some real prediction examples is shown below:
 <img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image2.jpg" height="30">: "i" (conf. = 100.00%).
 
 ## API reference
-
-+ ~~Scripts and important functions that are not mentioned in Usage~~
 + `datasets.py`: Data should be in seperate folder 'data', in csv format. (look in sample.csv)
-+ `training.py`: Trains the model (which you select), and saves it in seperate folder 'data'. There is a choice to remove validation images from training images
-+ `testing.py`: Loads and trains the model from file 'test.csv' in folder entitled 'data'
-+ `answer_convert.py`: Converts the answers
++ `models.py`: Different models to train with, along with method to save, load, and call models.
++ `training.py`: Trains the model (which you select), and saves it in seperate folder 'data'. There is a choice to remove validation images from training images.
++ `testing.py`: Trains the model from file 'test.csv' in folder entitled 'data'.
++ `predict.py`: Predicts the alphabet in the image the user passes to it.
++ `utils.py`: Hosts miscellaneous programs, for keeping time, converting answers, or getting image samples etc.
 
 ## Miscellaneous
 

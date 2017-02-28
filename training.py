@@ -30,7 +30,7 @@ def training(model_type, x_train, y_train, x_val, y_val, image_shape):
     model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
     # Fit the model
-    model.fit(x_train, y_train, validation_data=(x_val, y_val), nb_epoch=100, batch_size=60, verbose=2)
+    model.fit(x_train, y_train, validation_data=(x_val, y_val), nb_epoch=50, batch_size=60, verbose=2)
 
     # Final evaluation of the model
     scores = model.evaluate(x_val, y_val, verbose=0)
