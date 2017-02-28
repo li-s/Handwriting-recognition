@@ -24,7 +24,7 @@ The provided model is trained and tested using the data from a [Kaggle competiti
 | ------- | ----- | ---------- | --------------- |
 | simple CNN | 100 | 64 | 90.74% |
 | larger CNN | 100 | 64 | 91.98% |
-| 30x3x3, 50x3x3, 200 | 100 | 60 | 92.84% |
+| 30x3x3, 50x3x3, 200 | 50 | 60 | 92.84% |
 | 30x3x3, 50x3x3, 200 | 100 | 60 | 93.33% |
 | Baseline | 100 | 20 | 86.46% |
 | Baseline | 200 | 64 | 85.03% |

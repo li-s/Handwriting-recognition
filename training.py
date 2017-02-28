@@ -4,7 +4,7 @@ numpy.random.seed(1701)
 from keras.utils import np_utils
 from keras.optimizers import SGD
 
-from datasets import get_train_data
+from datasets import get_train_data, generate_train_data
 from models import get_model_config, get_model_name, save_model
 from utils import profile
 
@@ -30,13 +30,26 @@ def training(model_type, x_train, y_train, x_val, y_val, image_shape):
     model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
     # Fit the model
-    model.fit(x_train, y_train, validation_data=(x_val, y_val), nb_epoch=50, batch_size=60, verbose=2)
+    model.fit(x_train, y_train, validation_data=(x_val, y_val), nb_epoch=90, batch_size=60, verbose=2)
 
     # Final evaluation of the model
     scores = model.evaluate(x_val, y_val, verbose=0)
     print('Validation error: {}%'.format(100 - scores[1] * 100))
 
     return scores, model
+
+def recursive_training(model_type, image_shape)
+    # Build the model
+    model = model_type(num_classes, image_shape)
+    model.summary()
+    
+    # Compile model
+    sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=False)
+    model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
+
+    # Fit the model
+    model.fit_generator( samples_per_epoch=10000, nb_epoch=10
+
 
 if __name__ == '__main__':
     model_name = get_model_name()

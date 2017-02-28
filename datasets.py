@@ -1,15 +1,38 @@
 import numpy as np
+from scipy.ndimage.interpolation import map_coordinates
+from scipy.ndimage.filters import gaussian_filter
 from skimage.transform import resize, rotate
-import skimage.io as skio
-import matplotlib.pyplot as plt
 import inspect
 
 import pickle
 from pprint import pprint
 import random
 
-
 random.seed(171)
+
+# Function copied from internet
+def elastic_transform(image, alpha, sigma, random_state=None):
+    """Elastic deformation of images as described in [Simard2003]_.
+    .. [Simard2003] Simard, Steinkraus and Platt, "Best Practices for
+       Convolutional Neural Networks applied to Visual Document Analysis", in
+       Proc. of the International Conference on Document Analysis and
+       Recognition, 2003.
+    """
+    assert len(image.shape)==2
+
+    if random_state is None:
+        random_state = np.random.RandomState(None)
+
+    shape = image.shape
+
+    dx = gaussian_filter((random_state.rand(*shape) * 2 - 1), sigma, mode="constant", cval=0) * alpha
+    dy = gaussian_filter((random_state.rand(*shape) * 2 - 1), sigma, mode="constant", cval=0) * alpha
+
+    x, y = np.meshgrid(np.arange(shape[0]), np.arange(shape[1]), indexing='ij')
+    indices = np.reshape(x+dx, (-1, 1)), np.reshape(y+dy, (-1, 1))
+
+    return map_coordinates(image, indices, order=1).reshape(shape)
+
 
 def convert(split_name):
     filepath = 'data/' + split_name + '.csv'
@@ -32,28 +55,11 @@ def convert(split_name):
             angle = random.randint(-30, 30)
             z = rotate(b, angle)
 
-            if inspect.stack()[1][3] == 'answer_convert':
-                b = b.tolist()
-                d = int(doc[0])
-                a_list.append(b)
-                str_label.append(c)
-                index.append(d)
-            elif inspect.stack()[1][3] == 'get_test_data':
-                b = b.tolist()
-                d = int(doc[0])
-                a_list.append(b)
-                str_label.append(c)
-                index.append(d)
-            else:
-                z = z.tolist()
-                b = b.tolist()
-                d = int(doc[0])
-                a_list.append(z)
-                a_list.append(b)
-                str_label.append(c)
-                str_label.append(c)
-                index.append(d)
-                index.append(d)
+            z = z.tolist()
+            d = int(doc[0])
+            a_list.append(z)
+            str_label.append(c)
+            index.append(d)
 
     #convert a-b to their int counterparts
     label = []
@@ -62,6 +68,28 @@ def convert(split_name):
         label.append(int(a))
 
     return a_list, label, index
+
+def generate_train_data():
+    (x_train, y_train), (x_val, y_val) = get_train_data(del_val_from_train = True)
+    # One hot encoding -> converts the 26 alphabets(represented as integers) to a categorical system where the machine understands
+    y_train = np_utils.to_categorical(y_train)
+    y_val = np_utils.to_categorical(y_val)
+    num_classes = y_val.shape[1]
+
+    # Generator
+    while True:
+        a_list = []
+        label = []
+        for i in range(len(x_train)):
+            # Elastic transformation
+            s = random.uniform(0.01, 1)
+            e = random.randint(1, 100)
+            print(x_train[i])
+            input('1')
+            image = elastic_transform(x_train[i], s, e)
+
+
+            yield image,
 
 def get_train_data(del_val_from_train = False, num_val_sample = 4000):
     a_list, label, index = convert('train')
@@ -115,10 +143,6 @@ def get_train_data(del_val_from_train = False, num_val_sample = 4000):
 
 def get_test_data():
     a_list, label, index = convert('test')
-    # test_list_of_arrays = []
-    # for i in a_list:
-    # 	a_array = np.asarray(i, dtype = np.int)
-    # 	test_list_of_arrays.append(a_array)
     test_array = np.asarray(a_list, dtype = np.float32)
     test_label = np.asarray(label, dtype = np.int)
 
