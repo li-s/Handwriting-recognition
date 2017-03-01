@@ -8,8 +8,6 @@ from datasets import get_train_data, generate_train_data
 from models import get_model_config, get_model_name, save_model
 from utils import profile
 
-#(x_train, y_train), (x_val, y_val) = mnist.load_data()
-
 @profile
 def training(model_type, x_train, y_train, x_val, y_val, image_shape):
     '''
@@ -38,18 +36,28 @@ def training(model_type, x_train, y_train, x_val, y_val, image_shape):
 
     return scores, model
 
-def recursive_training(model_type, image_shape)
+def recursive_training(model_type, x_train, y_train, x_val, y_val, image_shape):
+    # One hot encoding -> converts the 26 alphabets(represented as integers) to a categorical system where the machine understands
+    y_train = np_utils.to_categorical(y_train)
+    y_val = np_utils.to_categorical(y_val)
+    num_classes = y_val.shape[1]
+
     # Build the model
     model = model_type(num_classes, image_shape)
     model.summary()
-    
+
     # Compile model
     sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=False)
     model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
     # Fit the model
-    model.fit_generator( samples_per_epoch=10000, nb_epoch=10
+    model.fit_generator(generate_train_data(x_train, y_train), samples_per_epoch=40000, nb_epoch=100, validation_data=(x_val, y_val))
 
+    # Final evaluation of the model
+    scores = model.evaluate(x_val, y_val, verbose=0)
+    print('Validation error: {}%'.format(100 - scores[1] * 100))
+
+    return scores, model
 
 if __name__ == '__main__':
     model_name = get_model_name()
@@ -72,7 +80,11 @@ if __name__ == '__main__':
     model_config = get_model_config(model_name)
 
     # Runs model
-    scores, model = training(model_config['model_builder'], x_train, y_train, x_val, y_val, image_shape)
+    choose_training = input('Choose training type: (normal/[recursive])')
+    if choose_training == 'normal':
+        scores, model = training(model_config['model_builder'], x_train, y_train, x_val, y_val, image_shape)
+    else:
+        scores, model = recursive_training(model_config['model_builder'], x_train, y_train, x_val, y_val, image_shape)
 
     # Saves model
     save_model(model, model_config)

@@ -5,7 +5,7 @@ Handwritten character recognition is a typical task of image classification, whi
 ## Getting started
 
 #### Prerequisites
-+ Python3
++ [Python3](https://www.python.org/download/releases/3.0/)
 + [numpy](http://www.numpy.org/)
 + [matplotlib](http://matplotlib.org/)
 + [scikit-image](http://scikit-image.org/)
@@ -15,19 +15,20 @@ Handwritten character recognition is a typical task of image classification, whi
 #### Usage
 1. Run `python3 predict.py [image_path]`, to get the prediction result from a given image path.
 2. Run `python3 training.py`, to train a new model. Training data specification is mentioned API reference.
+3. Run `python3 testing.py`, to test the current model. Test images should be in csv format in seperate folder 'data'.
 
 ## Testing results
 
 The provided model is trained and tested using the data from a [Kaggle competition](https://inclass.kaggle.com/c/cs5339-prediction-competition). The accuracy of the model according to different parameter settings is shown in the table below:
 
-| # Model | epoch | batch size | testing accuray |
-| ------- | ----- | ---------- | --------------- |
-| simple CNN | 100 | 64 | 90.74% |
-| larger CNN | 100 | 64 | 91.98% |
-| 30x3x3, 50x3x3, 200 | 50 | 60 | 92.84% |
-| 30x3x3, 50x3x3, 200 | 100 | 60 | 93.33% |
-| Baseline | 100 | 20 | 86.46% |
-| Baseline | 200 | 64 | 85.03% |
+| # Model | Model fit type | Epoch | Batch size | Testing accuray |
+| ------- | -------------- | ----- | ---------- | --------------- |
+| larger_CNN (30x3x3, 50x3x3, 200) | Normal | 100 | 60 | 93.33% |
+| larger_CNN (30x3x3, 50x3x3, 200) | Normal | 50 | 60 | 92.84% |
+| larger CNN (30x5x5, 30X3X3, 200)| Normal | 100 | 64 | 91.98% |
+| simple CNN (32X5X5, 2X2) | Normal |100 | 64 | 90.74% |
+| Baseline | Normal | 100 | 20 | 86.46% |
+| Baseline | Normal | 200 | 64 | 85.03% |
 
 Some real prediction examples is shown below:  
 <img src="https://github.com/li-s/Handwriting-recognition/blob/master/data/show_image0.jpg" height="30">: "s" (conf. = 99.83%),

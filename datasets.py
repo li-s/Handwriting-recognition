@@ -2,13 +2,13 @@ import numpy as np
 from scipy.ndimage.interpolation import map_coordinates
 from scipy.ndimage.filters import gaussian_filter
 from skimage.transform import resize, rotate
-import inspect
+from keras.utils import np_utils
 
 import pickle
 from pprint import pprint
 import random
 
-# random.seed(171)
+random.seed(171)
 
 # Function copied from internet
 def elastic_transform(image, alpha, sigma, random_state=None):
@@ -52,12 +52,12 @@ def convert(split_name):
             # Resize images
             b = b[~(b==0).all(1)]
             b = resize(b, (16, 16))
-            angle = random.randint(-30, 30)
-            z = rotate(b, angle)
+            # angle = random.randint(-30, 30)
+            # z = rotate(b, angle)
 
-            z = z.tolist()
+            b = b.tolist()
             d = int(doc[0])
-            a_list.append(z)
+            a_list.append(b)
             str_label.append(c)
             index.append(d)
 
@@ -69,27 +69,24 @@ def convert(split_name):
 
     return a_list, label, index
 
-def generate_train_data():
-    (x_train, y_train), (x_val, y_val) = get_train_data(del_val_from_train = True)
-    # One hot encoding -> converts the 26 alphabets(represented as integers) to a categorical system where the machine understands
-    y_train = np_utils.to_categorical(y_train)
-    y_val = np_utils.to_categorical(y_val)
-    num_classes = y_val.shape[1]
-
+def generate_train_data(x_train, y_train):
     # Generator
     while True:
-        a_list = []
-        label = []
-        for i in range(len(x_train)):
+        x_list = []
+        y_list = []
+        random_int = random.sample(range(0, len(x_train)), 60)
+        for i in random_int:
             # Elastic transformation
             s = random.uniform(0.01, 1)
             e = random.randint(1, 100)
-            print(x_train[i])
-            input('1')
             image = elastic_transform(x_train[i], s, e)
-
-
-            yield image,
+            image = image.tolist()
+            x_list.append(image)
+            a = y_train[i]
+            y_list.append(a.tolist())
+        x_list = np.asarray(x_list)
+        y_list = np.asarray(y_list)
+        yield (x_list, y_list)
 
 def get_train_data(del_val_from_train = False, num_val_sample = 4000):
     a_list, label, index = convert('train')
@@ -115,15 +112,6 @@ def get_train_data(del_val_from_train = False, num_val_sample = 4000):
             if i not in removal_positions:
                 train_array.append(a_list[i])
                 train_label.append(label[i])
-
-    # Finds out how many repetitions from val there are in train.
-    # if del_val_from_train == True:
-    #     b = 0
-    #     for i in val_array:
-    #         for j in train_array:
-    #             if i == j:
-    #                 b += 1
-    #     print('found {}'.format(b))
 
     #format for train
     train = []
