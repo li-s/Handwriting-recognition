@@ -8,7 +8,7 @@ import pickle
 from pprint import pprint
 import random
 
-random.seed(171)
+# random.seed(171)
 
 # Function copied from internet
 def elastic_transform(image, alpha, sigma, random_state=None):
