@@ -51,7 +51,7 @@ def convert(split_name):
             b = b.reshape((16, 8))
             # Resize images
             # b = b[~(b==0).all(1)]
-            b = resize(b, (16, 16))
+            # b = resize(b, (16, 16))
             # angle = random.randint(-30, 30)
             # z = rotate(b, angle)
 

@@ -24,7 +24,8 @@ The provided model is trained and tested using the data from a [Kaggle competiti
 | # Model | Model fit type | Epoch | Batch size | Testing accuray |
 | ------- | -------------- | ----- | ---------- | --------------- |
 | larger_CNN (30x3x3, 50x3x3, 200) | Normal | 100 | 60 | 93.33% |
-| larger_CNN (30x3x3, 50x3x3, 200) | Normal | 50 | 60 | 92.84% |
+| larger_CNN (30x3x3, 50x3x3, 200) | Generator | 50 | 60 | 92.84% |
+| larger_CNN (30x3x3, 50x3x3, 500, 250)| Generator | 50 | 60 | 92.66% |
 | larger CNN (30x5x5, 30X3X3, 200)| Normal | 100 | 64 | 91.98% |
 | simple CNN (32X5X5, 2X2) | Normal |100 | 64 | 90.74% |
 | Baseline | Normal | 100 | 20 | 86.46% |
