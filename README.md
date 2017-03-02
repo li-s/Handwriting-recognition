@@ -54,3 +54,4 @@ On the other hand, a machine undergoing unsupervised learning does not have corr
 + [One hot encoding](https://www.quora.com/What-is-one-hot-encoding-and-when-is-it-used-in-data-science)
 + [What is an intuitive explanation for neural networks?](https://www.quora.com/What-is-an-intuitive-explanation-for-neural-networks)
 + [What is an intuitive explanation of overfitting?](https://www.quora.com/What-is-an-intuitive-explanation-of-overfitting)
++ [Neural networks](http://cs231n.github.io/)

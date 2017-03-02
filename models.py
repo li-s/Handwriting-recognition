@@ -50,7 +50,7 @@ def simple_CNN_model(num_classes, image_shape):
     model.add(Dense(num_classes, activation='softmax'))
     return model
 
-def larger_CNN_model(num_classes, image_shape): #need to reshape
+def larger_CNN_model(num_classes, image_shape):
     model = Sequential()
     model.add(Reshape((1, image_shape[0], image_shape[1]), input_shape = image_shape))
     # model.add(GaussianDropout(p = 0.3))
@@ -60,9 +60,9 @@ def larger_CNN_model(num_classes, image_shape): #need to reshape
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.2))
     model.add(Flatten())
-    model.add(Dense(500, activation='relu'))
+    model.add(Dense(510, activation='relu'))
     model.add(Dropout(0.2))
-	# model.add(Dense(256, activation='relu', W_regularizer=l2(0.1)))
+    model.add(Dense(250, activation='relu')) # , W_regularizer=l2(0.1)
     model.add(Dense(num_classes, activation='softmax'))
     return model
 
