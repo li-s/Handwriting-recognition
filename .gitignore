@@ -93,4 +93,5 @@ data/*
 !data/show_image*
 !data/test.csv
 !data/train.csv
-!data/
+!data/larger_CNN_model
+!data/larger_CNN_weight

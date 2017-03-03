@@ -19,7 +19,7 @@ In this repository, I am using Keras to train a model in handritting recognition
 ### Usage
 1. Run `python3 predict.py [image_path]`, to get the prediction result from a given image path.
 2. Run `python3 training.py`, to train a new model. Training data specification is mentioned API reference.
-3. Run `python3 testing.py`, to test the current model. Test images should be in csv format in seperate folder 'data'.
+3. Run `python3 testing.py`, to test the current model. Test images should be in csv format in seperate folder `data`.
 
 ## Testing results
 

@@ -62,6 +62,7 @@ def larger_CNN_model(num_classes, image_shape):
     model.add(Dense(400, activation='relu'))
     model.add(Dropout(0.2))
     model.add(Dense(200, activation='relu'))
+    model.add(Dense(100, activation='relu'))
     model.add(Dense(num_classes, activation='softmax'))
     return model
 
