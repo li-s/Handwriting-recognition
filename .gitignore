@@ -90,8 +90,7 @@ ENV/
 
 data/*
 !data/sample.csv
-!data/baseline.json
-!data/baseline.m
 !data/show_image*
 !data/test.csv
 !data/train.csv
+!data/
