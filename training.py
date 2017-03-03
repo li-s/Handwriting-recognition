@@ -51,7 +51,7 @@ def recursive_training(model_type, x_train, y_train, x_val, y_val, image_shape):
     model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
     # Fit the model
-    model.fit_generator(generate_train_data(x_train, y_train), samples_per_epoch=36000, nb_epoch=200, validation_data=(x_val, y_val))
+    model.fit_generator(generate_train_data(x_train, y_train), samples_per_epoch=36000, nb_epoch=100, validation_data=(x_val, y_val))
 
     # Final evaluation of the model
     scores = model.evaluate(x_val, y_val, verbose=0)

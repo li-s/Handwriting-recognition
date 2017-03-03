@@ -53,16 +53,15 @@ def simple_CNN_model(num_classes, image_shape):
 def larger_CNN_model(num_classes, image_shape):
     model = Sequential()
     model.add(Reshape((1, image_shape[0], image_shape[1]), input_shape = image_shape))
-    # model.add(GaussianDropout(p = 0.3))
     model.add(Convolution2D(30, 3, 3, border_mode='same', activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Convolution2D(50, 3, 3, border_mode='same', activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.2))
     model.add(Flatten())
-    model.add(Dense(500, activation='relu'))
+    model.add(Dense(400, activation='relu'))
     model.add(Dropout(0.2))
-    model.add(Dense(250, activation='relu'))
+    model.add(Dense(200, activation='relu'))
     model.add(Dense(num_classes, activation='softmax'))
     return model
 
