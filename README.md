@@ -15,6 +15,7 @@ In this repository, I am using Keras to train a model in handritting recognition
 + [scikit-image](http://scikit-image.org/)
 + [keras](http://machinelearningmastery.com/handwritten-digit-recognition-using-convolutional-neural-networks-python-keras/)
 + [tensorflow](https://www.tensorflow.org/) (for keras machine learning)
++ [skLearn](https://scikit-learn.org/stable/index.html) (For datasets)
 
 ### Usage
 1. Run `python3 predict.py [image_path]`, to get the prediction result from a given image path.
