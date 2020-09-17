@@ -133,37 +133,69 @@ def get_data():
     
     return X_train, Y_train, X_test, Y_test
 
-if __name__ == '__main__':
-    X, Y, _, _ = get_data()   
-    
-    m = X.shape[0]
-    m_train = int(m * 0.8)
+def prune(X, Y, alphabet):
+    m = 0
 
-    alphabet = input("Enter alphabet to predict: ")
-    Y = clean(Y, alphabet)
+    for al in Y:
+        if al[0] == alphabet:
+            m += 1
     
+    m_true = m
+    m_false = m
+    Y_pruned = []
+    X_pruned = []
+    for i in range(len(Y)):
+        if Y[i][0] == alphabet:
+            if m_true > 0:
+                X_pruned.append(X[i])
+                Y_pruned.append(Y[i][0])
+                m_true -= 1
+        else:
+            if m_false > 0:
+                X_pruned.append(X[i])
+                Y_pruned.append(Y[i][0])
+                m_false -= 1
+    
+    return np.asarray(X_pruned), np.asarray(Y_pruned).reshape(len(Y_pruned), 1)
+
+def train_val_split(X, Y, alphabet, percentage = 0.8):
+    m = X.shape[0]
+    m_train = int(m * percentage)
+
+    Y_clean = clean(Y, alphabet)
     X_train = X[:m_train]
-    Y_train = Y[:m_train]
+    Y_train = Y_clean[:m_train]
     X_test = X[m_train:]
-    Y_test = Y[m_train:]
+    Y_test = Y_clean[m_train:]
     Y_train = Y_train.reshape(Y_train.shape[0], 1)
     Y_test = Y_test.reshape(Y_test.shape[0], 1)
+
+    return X_train, Y_train, X_test, Y_test
+
+if __name__ == '__main__':
+    X, Y, _, _ = get_data()   
+
+    alphabet = input("Enter alphabet to predict: ")
+    
+    X_pruned, Y_pruned = prune(X, Y, alphabet)
+    X_train, Y_train, X_test, Y_test = train_val_split(X_pruned, Y_pruned, alphabet, 0.8)
+
+    d = model(X_train.T, Y_train.T, X_test.T, Y_test.T, 1000, 0.005, True)
+
+    w = d["w"]
+    b = d["b"]
+    costs = d["costs"]
     
     count = 0
     for i in range(len(Y_test)):
         if Y_test[i] == 1:
             count += 1
     
-    d = model(X_train.T, Y_train.T, X_test.T, Y_test.T, 1000, 0.005, True)
-
-    w = d["w"]
-    b = d["b"]
-    
-    sum = 0
+    s = 0
     for i in range(len(X_test)):
         pred = predict(w, b, X_test[i].reshape(X_test[i].shape[0], 1))
-        if pred == 0:
-            sum += 1
-
-    print(f"Total number of values = {m - m_train}")
-    print(f"Number of values predicted as 0 = {sum}")
+        if pred != Y_test[i]:
+            s += 1
+    
+    print(f"Total number of values = {count}")
+    print(f"Number of values predicted wrong = {s}, ie {(count - s) / count * 100}%")
