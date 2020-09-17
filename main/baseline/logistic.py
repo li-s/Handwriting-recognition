@@ -1,4 +1,5 @@
 import numpy as np
+import csv
 
 def sigmoid(z):
     return 1 / (1 + np.exp(-z))
@@ -83,32 +84,63 @@ def model(X_train, Y_train, X_test, Y_test, num_iterations = 2000, learning_rate
 
     return d
 
-def clean(Y, number):
+def clean(Y, alphabet):
     clean_Y = []
 
-    for i, num in enumerate(Y):
-        if num == number:
+    for i, al in enumerate(Y):
+        if al == alphabet.lower():
             clean_Y.append(1)
         else:
             clean_Y.append(0)
+    
+    clean_Y = np.asarray(clean_Y)
+    return clean_Y.reshape(clean_Y.shape[0], 1)
 
-    return np.asarray(clean_Y)
+def get_data():
+    with open('../../data/train.csv') as train_csv:
+        csv_reader = csv.reader(train_csv, delimiter = ',')
+        line_count = 0
+        X_train = []
+        Y_train = []
+        for row in csv_reader:
+            if line_count == 0:
+                line_count += 1
+            else:
+                X_train.append(row[4:])
+                Y_train.append(row[1])
+        
+        X_train = np.asarray(X_train, dtype = int)
+        Y_train = np.asarray(Y_train).reshape(X_train.shape[0], 1)
+        X_train.reshape(X_train.shape[1], X_train.shape[0])
+        Y_train.reshape(Y_train.shape[1], Y_train.shape[0])
+
+    with open('../../data/test.csv') as test_csv:
+        csv_reader = csv.reader(test_csv, delimiter = ',')
+        line_count = 0
+        X_test = []
+        Y_test = []
+        for row in csv_reader:
+            if line_count == 0:
+                line_count += 1
+            else:
+                X_test.append(row[4:])
+                Y_test.append(row[1])
+
+        X_test = np.asarray(X_test, dtype = int)
+        Y_test = np.asarray(Y_test).reshape(X_test.shape[0], 1)
+        X_test.reshape(X_test.shape[1], X_test.shape[0])
+        Y_test.reshape(Y_test.shape[1], Y_test.shape[0])
+    
+    return X_train, Y_train, X_test, Y_test
 
 if __name__ == '__main__':
-    from sklearn import datasets
-    import matplotlib.pyplot as plt
-    
-    hand_writting = datasets.load_digits()
-    X = hand_writting.data
-    Y = hand_writting.target
+    X, Y, _, _ = get_data()   
     
     m = X.shape[0]
     m_train = int(m * 0.8)
-    m_test = m - m_train
-    
-    number = input("Enter number to predict: ")
-    number = int(number)
-    Y = clean(Y, number)
+
+    alphabet = input("Enter alphabet to predict: ")
+    Y = clean(Y, alphabet)
     
     X_train = X[:m_train]
     Y_train = Y[:m_train]
@@ -117,7 +149,21 @@ if __name__ == '__main__':
     Y_train = Y_train.reshape(Y_train.shape[0], 1)
     Y_test = Y_test.reshape(Y_test.shape[0], 1)
     
-    X_train /= 16
-    X_test /= 16
+    count = 0
+    for i in range(len(Y_test)):
+        if Y_test[i] == 1:
+            count += 1
     
-    model(X_train.T, Y_train.T, X_test.T, Y_test.T, 2000, 0.005, True)
+    d = model(X_train.T, Y_train.T, X_test.T, Y_test.T, 1000, 0.005, True)
+
+    w = d["w"]
+    b = d["b"]
+    
+    sum = 0
+    for i in range(len(X_test)):
+        pred = predict(w, b, X_test[i].reshape(X_test[i].shape[0], 1))
+        if pred == 0:
+            sum += 1
+
+    print(f"Total number of values = {m - m_train}")
+    print(f"Number of values predicted as 0 = {sum}")
